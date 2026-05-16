@@ -60,6 +60,16 @@ export function reviewAgentRun(input: CriticInput): CriticFinding[] {
     })
   }
 
+  const weakOverlapCount = input.papers.filter(
+    (paper) => paper.comparison.matchedKeywords.length === 0
+  ).length
+  if (weakOverlapCount > 0) {
+    findings.push({
+      severity: "warning",
+      message: `${weakOverlapCount} ranked paper(s) have no direct keyword overlap in title/abstract metadata.`
+    })
+  }
+
   if (findings.length === 0) {
     findings.push({
       severity: "info",

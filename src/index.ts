@@ -14,6 +14,12 @@ async function main() {
   console.log("Allowed journals:", result.allowedJournals.slice(0, 10), "\n")
   console.log(`OpenAlex candidates: ${result.candidatesCount}`)
   console.log(`After journal filter: ${result.filteredCount}`)
+  console.log("Retrieval attempts:")
+  result.retrievalAttempts.forEach((attempt, idx) => {
+    console.log(
+      `   ${idx + 1}. ${attempt.query} -> ${attempt.candidatesCount} candidates, ${attempt.filteredCount} filtered`
+    )
+  })
 
   console.log("\nTop 5 papers:\n")
   result.papers.forEach((paper, idx) => {

@@ -3,12 +3,14 @@ import { join } from "node:path"
 import { ComparedPaper } from "./comparator.js"
 import { CriticFinding } from "./critic.js"
 import { DomainKey } from "./journals.js"
+import type { RetrievalAttempt } from "./agent.js"
 
 export type AgentReportInput = {
   topic: string
   domains: DomainKey[]
   keywords: string[]
   allowedJournals: string[]
+  retrievalAttempts: RetrievalAttempt[]
   candidatesCount: number
   filteredCount: number
   papers: ComparedPaper[]
@@ -44,6 +46,10 @@ function renderMarkdownReport(input: AgentReportInput): string {
 - After journal filter: ${input.filteredCount}
 - Allowed journals: ${input.allowedJournals.join("; ")}
 
+## Retrieval Attempts
+
+${input.retrievalAttempts.map(renderRetrievalAttempt).join("\n")}
+
 ## Top Papers
 
 ${paperSections}
@@ -66,6 +72,8 @@ function renderPaper(paper: ComparedPaper, index: number): string {
 - OpenAlex ID: ${paper.openAlexId}
 
 #### Comparison
+- Matched keywords: ${paper.comparison.matchedKeywords.join(", ") || "None"}
+- Missing keywords: ${paper.comparison.missingKeywords.join(", ") || "None"}
 - Common points:
 ${paper.comparison.commonPoints.map((point) => `  - ${point}`).join("\n")}
 - Differences:
@@ -86,4 +94,12 @@ function slugify(text: string): string {
 
 function renderCriticFinding(finding: CriticFinding): string {
   return `- ${finding.severity.toUpperCase()}: ${finding.message}`
+}
+
+function renderRetrievalAttempt(attempt: RetrievalAttempt, index: number): string {
+  return `### Attempt ${index + 1}
+- Query: ${attempt.query}
+- OpenAlex candidates: ${attempt.candidatesCount}
+- After journal filter: ${attempt.filteredCount}
+`
 }

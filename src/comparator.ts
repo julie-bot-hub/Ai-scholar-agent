@@ -1,6 +1,8 @@
 import { RankedPaper } from "./ranker.js"
 
 export type PaperComparison = {
+  matchedKeywords: string[]
+  missingKeywords: string[]
   commonPoints: string[]
   differences: string[]
   researchGap: string
@@ -33,6 +35,8 @@ function comparePaperToTopic(
   )
 
   return {
+    matchedKeywords,
+    missingKeywords,
     commonPoints: buildCommonPoints(matchedKeywords, paper),
     differences: buildDifferences(missingKeywords, paper),
     researchGap: buildResearchGap(topic, matchedKeywords, missingKeywords, paper)

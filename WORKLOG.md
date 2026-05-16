@@ -94,3 +94,20 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Retrieval self-correction loop
+
+- Summary: Added a second-pass OpenAlex retrieval attempt when the first allowed-journal filter returns fewer than five papers, recorded retrieval attempts in the Markdown report, and expanded Critic checks to flag papers with no direct keyword overlap.
+- Changed files:
+  - `WORKLOG.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `src/agent.ts`
+  - `src/comparator.ts`
+  - `src/critic.ts`
+  - `src/index.ts`
+  - `src/openalex.ts`
+  - `src/report.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit

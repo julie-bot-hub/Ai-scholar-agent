@@ -12,6 +12,7 @@ export type ScholarAgentResult = {
   domains: string[]
   keywords: string[]
   allowedJournals: string[]
+  retrievalAttempts: RetrievalAttempt[]
   candidatesCount: number
   filteredCount: number
   papers: ComparedPaper[]
@@ -19,13 +20,22 @@ export type ScholarAgentResult = {
   reportPath: string
 }
 
+export type RetrievalAttempt = {
+  query: string
+  candidatesCount: number
+  filteredCount: number
+}
+
 export async function runScholarAgent(topic: string): Promise<ScholarAgentResult> {
   const plan = planResearchTopic(topic)
   const allowedJournals = plan.domains.flatMap((domain) => JOURNALS[domain])
-  const query = plan.keywords.join(" ")
+  const primaryQuery = plan.keywords.join(" ")
 
-  const candidates = await searchOpenAlex(query)
-  const filtered = filterByJournals(candidates, allowedJournals)
+  const { candidates, filtered, retrievalAttempts } = await retrieveWithCorrection(
+    primaryQuery,
+    topic,
+    allowedJournals
+  )
 
   const verified = await Promise.all(
     filtered.map(async (paper) => ({
@@ -47,6 +57,7 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     domains: plan.domains,
     keywords: plan.keywords,
     allowedJournals,
+    retrievalAttempts,
     candidatesCount: candidates.length,
     filteredCount: filtered.length,
     papers,
@@ -58,10 +69,69 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     domains: plan.domains,
     keywords: plan.keywords,
     allowedJournals,
+    retrievalAttempts,
     candidatesCount: candidates.length,
     filteredCount: filtered.length,
     papers,
     criticFindings,
     reportPath
   }
+}
+
+async function retrieveWithCorrection(
+  primaryQuery: string,
+  topic: string,
+  allowedJournals: string[]
+): Promise<{
+  candidates: Awaited<ReturnType<typeof searchOpenAlex>>
+  filtered: Awaited<ReturnType<typeof searchOpenAlex>>
+  retrievalAttempts: RetrievalAttempt[]
+}> {
+  const retrievalAttempts: RetrievalAttempt[] = []
+  const candidates = await searchOpenAlex(primaryQuery, 20)
+  let mergedCandidates = candidates
+  let filtered = filterByJournals(mergedCandidates, allowedJournals)
+
+  retrievalAttempts.push({
+    query: primaryQuery,
+    candidatesCount: candidates.length,
+    filteredCount: filtered.length
+  })
+
+  if (filtered.length < 5 && topic !== primaryQuery) {
+    const expandedCandidates = await searchOpenAlex(topic, 50)
+    mergedCandidates = mergePapersByOpenAlexId(mergedCandidates, expandedCandidates)
+    filtered = filterByJournals(mergedCandidates, allowedJournals)
+
+    retrievalAttempts.push({
+      query: topic,
+      candidatesCount: expandedCandidates.length,
+      filteredCount: filtered.length
+    })
+  }
+
+  return {
+    candidates: mergedCandidates,
+    filtered,
+    retrievalAttempts
+  }
+}
+
+function mergePapersByOpenAlexId<T extends { openAlexId: string }>(
+  primary: T[],
+  secondary: T[]
+): T[] {
+  const seen = new Set<string>()
+  const merged: T[] = []
+
+  for (const paper of [...primary, ...secondary]) {
+    if (seen.has(paper.openAlexId)) {
+      continue
+    }
+
+    seen.add(paper.openAlexId)
+    merged.push(paper)
+  }
+
+  return merged
 }

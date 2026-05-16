@@ -29,10 +29,10 @@ function extractAbstract(invertedIndex?: Record<string, number[]>): string | nul
     .join(" ")
 }
 
-export async function searchOpenAlex(query: string): Promise<Paper[]> {
+export async function searchOpenAlex(query: string, perPage = 20): Promise<Paper[]> {
   const url = new URL("https://api.openalex.org/works")
   url.searchParams.set("search", query)
-  url.searchParams.set("per-page", "20")
+  url.searchParams.set("per-page", String(perPage))
   url.searchParams.set("sort", "cited_by_count:desc")
 
   const res = await fetch(url.toString())
