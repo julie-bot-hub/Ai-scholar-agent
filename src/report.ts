@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises"
 import { join } from "node:path"
+import { ComparedPaper } from "./comparator.js"
 import { DomainKey } from "./journals.js"
-import { RankedPaper } from "./ranker.js"
 
 export type AgentReportInput = {
   topic: string
@@ -10,7 +10,7 @@ export type AgentReportInput = {
   allowedJournals: string[]
   candidatesCount: number
   filteredCount: number
-  papers: RankedPaper[]
+  papers: ComparedPaper[]
 }
 
 export async function writeMarkdownReport(input: AgentReportInput): Promise<string> {
@@ -47,7 +47,7 @@ function renderMarkdownReport(input: AgentReportInput): string {
 ${paperSections}`
 }
 
-function renderPaper(paper: RankedPaper, index: number): string {
+function renderPaper(paper: ComparedPaper, index: number): string {
   return `### ${index + 1}. ${paper.title}
 - Journal: ${paper.journal ?? "Unknown"}
 - Year: ${paper.year ?? "Unknown"}
@@ -59,6 +59,13 @@ function renderPaper(paper: RankedPaper, index: number): string {
 - Citations: ${paper.citedByCount}
 - Score: ${paper.score.toFixed(3)}
 - OpenAlex ID: ${paper.openAlexId}
+
+#### Comparison
+- Common points:
+${paper.comparison.commonPoints.map((point) => `  - ${point}`).join("\n")}
+- Differences:
+${paper.comparison.differences.map((point) => `  - ${point}`).join("\n")}
+- Research gap: ${paper.comparison.researchGap}
 `
 }
 
