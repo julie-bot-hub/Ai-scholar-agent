@@ -152,3 +152,23 @@
 - Paper Validity Rate: 1
 - Open Access Rate: 1
 - Average Score: 0.84
+
+## Baseline Comparison
+
+### Baseline 2: keyword-only OpenAlex search
+- Description: OpenAlex keyword search ranked by citations without allowed-journal filtering.
+- Query: AI disclosure consumer trust online review platforms
+- OpenAlex candidates: 20
+- Returned count: 5
+- Paper Validity Rate: 1
+- Open Access Rate: 1
+- Average Score: 0.908
+
+### Proposed vs Baseline
+- Proposed Paper Validity Rate: 1
+- Baseline Paper Validity Rate: 1
+- Proposed Open Access Rate: 1
+- Baseline Open Access Rate: 1
+- Proposed Average Score: 0.84
+- Baseline Average Score: 0.908
+- Interpretation note: Average Score does not measure allowed-journal precision; it only combines citation, recency, DOI validity, and open-access status.

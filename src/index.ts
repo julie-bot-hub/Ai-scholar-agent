@@ -47,6 +47,13 @@ async function main() {
   console.log(`   Top K Complete: ${result.evaluation.topKComplete}`)
   console.log("")
 
+  console.log("Baseline:")
+  console.log(`   ${result.baseline.name}`)
+  console.log(`   Paper Validity Rate: ${result.baseline.evaluation.paperValidityRate}`)
+  console.log(`   Open Access Rate: ${result.baseline.evaluation.openAccessRate}`)
+  console.log(`   Average Score: ${result.baseline.evaluation.averageScore}`)
+  console.log("")
+
   console.log(`Report: ${result.reportPath}`)
 }
 

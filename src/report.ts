@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises"
 import { join } from "node:path"
+import { BaselineResult } from "./baseline.js"
 import { ComparedPaper } from "./comparator.js"
 import { CriticFinding } from "./critic.js"
 import { EvaluationSummary } from "./evaluator.js"
@@ -17,6 +18,7 @@ export type AgentReportInput = {
   papers: ComparedPaper[]
   criticFindings: CriticFinding[]
   evaluation: EvaluationSummary
+  baseline: BaselineResult
 }
 
 export async function writeMarkdownReport(input: AgentReportInput): Promise<string> {
@@ -61,7 +63,11 @@ ${input.criticFindings.map(renderCriticFinding).join("\n")}
 
 ## Evaluation Summary
 
-${renderEvaluationSummary(input.evaluation)}`
+${renderEvaluationSummary(input.evaluation)}
+
+## Baseline Comparison
+
+${renderBaselineComparison(input.baseline, input.evaluation)}`
 }
 
 function renderPaper(paper: ComparedPaper, index: number): string {
@@ -117,4 +123,27 @@ function renderEvaluationSummary(evaluation: EvaluationSummary): string {
 - Paper Validity Rate: ${evaluation.paperValidityRate}
 - Open Access Rate: ${evaluation.openAccessRate}
 - Average Score: ${evaluation.averageScore}`
+}
+
+function renderBaselineComparison(
+  baseline: BaselineResult,
+  proposedEvaluation: EvaluationSummary
+): string {
+  return `### ${baseline.name}
+- Description: ${baseline.description}
+- Query: ${baseline.query}
+- OpenAlex candidates: ${baseline.candidatesCount}
+- Returned count: ${baseline.evaluation.returnedCount}
+- Paper Validity Rate: ${baseline.evaluation.paperValidityRate}
+- Open Access Rate: ${baseline.evaluation.openAccessRate}
+- Average Score: ${baseline.evaluation.averageScore}
+
+### Proposed vs Baseline
+- Proposed Paper Validity Rate: ${proposedEvaluation.paperValidityRate}
+- Baseline Paper Validity Rate: ${baseline.evaluation.paperValidityRate}
+- Proposed Open Access Rate: ${proposedEvaluation.openAccessRate}
+- Baseline Open Access Rate: ${baseline.evaluation.openAccessRate}
+- Proposed Average Score: ${proposedEvaluation.averageScore}
+- Baseline Average Score: ${baseline.evaluation.averageScore}
+- Interpretation note: Average Score does not measure allowed-journal precision; it only combines citation, recency, DOI validity, and open-access status.`
 }

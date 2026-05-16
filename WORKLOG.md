@@ -127,3 +127,18 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Keyword-only baseline comparison
+
+- Summary: Added a keyword-only OpenAlex baseline and report comparison against the proposed allowed-journal agent workflow.
+- Changed files:
+  - `WORKLOG.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `src/agent.ts`
+  - `src/baseline.ts`
+  - `src/index.ts`
+  - `src/report.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit
