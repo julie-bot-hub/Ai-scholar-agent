@@ -6,6 +6,9 @@ export type Paper = {
   citedByCount: number
   abstract: string | null
   authors: string[]
+  isOpenAccess: boolean
+  pdfUrl: string | null
+  landingPageUrl: string | null
   openAlexId: string
 }
 
@@ -47,6 +50,9 @@ export async function searchOpenAlex(query: string): Promise<Paper[]> {
     citedByCount: item.cited_by_count ?? 0,
     abstract: extractAbstract(item.abstract_inverted_index),
     authors: (item.authorships ?? []).map((a: any) => a.author?.display_name).filter(Boolean),
+    isOpenAccess: Boolean(item.open_access?.is_oa),
+    pdfUrl: item.primary_location?.pdf_url ?? item.open_access?.oa_url ?? null,
+    landingPageUrl: item.primary_location?.landing_page_url ?? null,
     openAlexId: item.id
   }))
 }

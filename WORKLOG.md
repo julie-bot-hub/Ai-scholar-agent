@@ -42,3 +42,25 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm install`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Agent orchestration and tracked report output
+
+- Summary: Added a scholar agent orchestration layer, OpenAlex access metadata, DOI verification retry handling, access status labels, tracked Markdown report output, and TypeScript typechecking.
+- Changed files:
+  - `.gitignore`
+  - `WORKLOG.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `package-lock.json`
+  - `package.json`
+  - `src/agent.ts`
+  - `src/index.ts`
+  - `src/openalex.ts`
+  - `src/planner.ts`
+  - `src/ranker.ts`
+  - `src/report.ts`
+  - `src/verifier.ts`
+- Verification:
+  - Ran `npm install`.
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit

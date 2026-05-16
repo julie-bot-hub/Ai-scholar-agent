@@ -1,8 +1,4 @@
-import { JOURNALS } from "./journals.js"
-import { planResearchTopic } from "./planner.js"
-import { searchOpenAlex } from "./openalex.js"
-import { verifyDoi } from "./verifier.js"
-import { filterByJournals, rankPapers } from "./ranker.js"
+import { runScholarAgent } from "./agent.js"
 
 async function main() {
   const topic =
@@ -11,41 +7,28 @@ async function main() {
 
   console.log(`\nTopic: ${topic}\n`)
 
-  const plan = planResearchTopic(topic)
-  console.log("Selected domains:", plan.domains)
-  console.log("Keywords:", plan.keywords.join(", "), "\n")
+  const result = await runScholarAgent(topic)
 
-  const allowedJournals = plan.domains.flatMap((d) => JOURNALS[d])
-  console.log("Allowed journals:", allowedJournals.slice(0, 10), "\n")
-
-  const query = plan.keywords.join(" ")
-  const candidates = await searchOpenAlex(query)
-
-  console.log(`OpenAlex candidates: ${candidates.length}`)
-
-  const filtered = filterByJournals(candidates, allowedJournals)
-  console.log(`After journal filter: ${filtered.length}`)
-
-  const verified = await Promise.all(
-    filtered.map(async (paper) => ({
-      ...paper,
-      doiValid: await verifyDoi(paper.doi)
-    }))
-  )
-
-  const ranked = rankPapers(verified).slice(0, 5)
+  console.log("Selected domains:", result.domains)
+  console.log("Keywords:", result.keywords.join(", "), "\n")
+  console.log("Allowed journals:", result.allowedJournals.slice(0, 10), "\n")
+  console.log(`OpenAlex candidates: ${result.candidatesCount}`)
+  console.log(`After journal filter: ${result.filteredCount}`)
 
   console.log("\nTop 5 papers:\n")
-  ranked.forEach((paper, idx) => {
+  result.papers.forEach((paper, idx) => {
     console.log(`${idx + 1}. ${paper.title}`)
     console.log(`   Journal: ${paper.journal}`)
     console.log(`   Year: ${paper.year}`)
     console.log(`   DOI: ${paper.doi}`)
     console.log(`   DOI Valid: ${paper.doiValid}`)
+    console.log(`   Access: ${paper.accessStatus}`)
     console.log(`   Citations: ${paper.citedByCount}`)
     console.log(`   Score: ${paper.score.toFixed(3)}`)
     console.log("")
   })
+
+  console.log(`Report: ${result.reportPath}`)
 }
 
 main().catch((err) => {

@@ -1,5 +1,15 @@
 import { DomainKey } from "./journals.js"
 
+const STOP_WORDS = new Set([
+  "and",
+  "the",
+  "for",
+  "with",
+  "from",
+  "into",
+  "about"
+])
+
 export function planResearchTopic(topic: string): {
   keywords: string[]
   domains: DomainKey[]
@@ -44,7 +54,10 @@ export function planResearchTopic(topic: string): {
   const keywords = topic
     .split(/[,\s]+/)
     .map((w) => w.trim())
-    .filter((w) => w.length > 2)
+    .filter((w) => {
+      const lower = w.toLowerCase()
+      return (w.length > 2 || lower === "ai") && !STOP_WORDS.has(lower)
+    })
     .slice(0, 8)
 
   return { keywords, domains }
