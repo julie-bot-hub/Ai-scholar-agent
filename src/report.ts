@@ -146,5 +146,5 @@ function renderBaselineComparison(
 - Baseline Open Access Rate: ${baseline.evaluation.openAccessRate}
 - Proposed Average Score: ${proposedEvaluation.averageScore}
 - Baseline Average Score: ${baseline.evaluation.averageScore}
-- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status.`
+- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status, with topic relevance weighted most heavily.`
 }

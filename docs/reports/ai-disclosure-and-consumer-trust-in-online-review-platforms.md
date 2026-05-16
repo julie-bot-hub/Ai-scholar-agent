@@ -35,7 +35,7 @@
 - Landing page: https://doi.org/10.1177/0022242920953847
 - Citations: 976
 - Relevance score: 0.286
-- Score: 0.660
+- Score: 0.583
 - OpenAlex ID: https://openalex.org/W3081261125
 
 #### Comparison
@@ -59,7 +59,7 @@
 - Landing page: https://doi.org/10.1007/s11747-020-00749-9
 - Citations: 1474
 - Relevance score: 0.143
-- Score: 0.610
+- Score: 0.511
 - OpenAlex ID: https://openalex.org/W3094793347
 
 #### Comparison
@@ -83,7 +83,7 @@
 - Landing page: https://doi.org/10.2307/41409971
 - Citations: 1289
 - Relevance score: 0.143
-- Score: 0.550
+- Score: 0.471
 - OpenAlex ID: https://openalex.org/W1870146437
 
 #### Comparison
@@ -108,7 +108,7 @@
 - Top K complete: false
 - Paper Validity Rate: 1
 - Open Access Rate: 1
-- Average Score: 0.607
+- Average Score: 0.522
 
 ## Baseline Comparison
 
@@ -119,13 +119,13 @@
 - Returned count: 5
 - Paper Validity Rate: 1
 - Open Access Rate: 1
-- Average Score: 0.688
+- Average Score: 0.609
 
 ### Proposed vs Baseline
 - Proposed Paper Validity Rate: 1
 - Baseline Paper Validity Rate: 1
 - Proposed Open Access Rate: 1
 - Baseline Open Access Rate: 1
-- Proposed Average Score: 0.607
-- Baseline Average Score: 0.688
-- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status.
+- Proposed Average Score: 0.522
+- Baseline Average Score: 0.609
+- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status, with topic relevance weighted most heavily.

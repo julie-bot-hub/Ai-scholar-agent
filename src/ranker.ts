@@ -28,10 +28,10 @@ export function rankPapers(
       const relevanceScore = calculateRelevanceScore(paper, keywords)
 
       const score =
-        relevanceScore * 0.35 +
-        citationScore * 0.25 +
-        recencyScore * 0.15 +
-        doiScore * 0.15 +
+        relevanceScore * 0.5 +
+        citationScore * 0.2 +
+        recencyScore * 0.1 +
+        doiScore * 0.1 +
         accessScore * 0.1
 
       return {

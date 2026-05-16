@@ -15,7 +15,7 @@ export function keywordMatches(searchableText: string, keyword: string): boolean
     return /\bai\b/.test(searchableText) || searchableText.includes("artificial intelligence")
   }
 
-  return new RegExp(`\\b${escapeRegExp(normalizedKeyword)}\\b`).test(searchableText)
+  return new RegExp(`\\b${escapeRegExp(normalizedKeyword)}s?\\b`).test(searchableText)
 }
 
 function escapeRegExp(text: string): string {

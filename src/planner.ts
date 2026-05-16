@@ -15,6 +15,7 @@ export function planResearchTopic(topic: string): {
   domains: DomainKey[]
 } {
   const lower = topic.toLowerCase()
+  const tokens = lower.split(/[^a-z0-9]+/).filter(Boolean)
 
   const domains: DomainKey[] = []
 
@@ -29,7 +30,8 @@ export function planResearchTopic(topic: string): {
   }
 
   if (
-    lower.includes("ai") ||
+    tokens.includes("ai") ||
+    lower.includes("artificial intelligence") ||
     lower.includes("system") ||
     lower.includes("platform") ||
     lower.includes("information") ||

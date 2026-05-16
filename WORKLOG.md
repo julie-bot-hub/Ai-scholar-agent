@@ -159,3 +159,23 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Unit test coverage
+
+- Summary: Added TypeScript unit tests for planning, journal filtering, relevance-aware ranking, and evaluation metrics; fixed AI keyword matching and simple plural matching uncovered by tests.
+- Changed files:
+  - `WORKLOG.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `package.json`
+  - `src/keyword.ts`
+  - `src/planner.ts`
+  - `src/ranker.ts`
+  - `src/report.ts`
+  - `tests/evaluator.test.ts`
+  - `tests/planner.test.ts`
+  - `tests/ranker.test.ts`
+- Verification:
+  - Ran `npm test`.
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit
