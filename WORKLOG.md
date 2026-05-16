@@ -247,3 +247,15 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm test`.
 - Commit: this commit
+
+### Keyword matching tests
+
+- Summary: Added keyword helper tests and made direct keyword matching case-insensitive with safer boundaries for special-character keywords.
+- Changed files:
+  - `WORKLOG.md`
+  - `src/keyword.ts`
+  - `tests/keyword.test.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm test`.
+- Commit: this commit

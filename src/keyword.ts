@@ -9,13 +9,16 @@ export function findMissingKeywords(text: string, keywords: string[]): string[] 
 }
 
 export function keywordMatches(searchableText: string, keyword: string): boolean {
+  const normalizedText = searchableText.toLowerCase()
   const normalizedKeyword = keyword.toLowerCase()
 
   if (normalizedKeyword === "ai") {
-    return /\bai\b/.test(searchableText) || searchableText.includes("artificial intelligence")
+    return /\bai\b/.test(normalizedText) || normalizedText.includes("artificial intelligence")
   }
 
-  return new RegExp(`\\b${escapeRegExp(normalizedKeyword)}s?\\b`).test(searchableText)
+  return new RegExp(`(?<![a-z0-9])${escapeRegExp(normalizedKeyword)}s?(?![a-z0-9])`).test(
+    normalizedText
+  )
 }
 
 function escapeRegExp(text: string): string {
