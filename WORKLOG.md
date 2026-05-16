@@ -207,3 +207,21 @@ This file records completed work for the Ai-scholar-agent repository.
 - Verification:
   - Reviewed the updated documentation for the current CLI workflow and data loader format.
 - Commit: this commit
+
+### Direct prompt baseline comparison
+
+- Summary: Added a direct topic-query baseline alongside the keyword-only baseline, updated console and Markdown report output to render multiple baselines, and refreshed the generated sample report.
+- Changed files:
+  - `README.md`
+  - `WORKLOG.md`
+  - `docs/github_upload_queue.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `src/agent.ts`
+  - `src/baseline.ts`
+  - `src/index.ts`
+  - `src/report.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm test`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit

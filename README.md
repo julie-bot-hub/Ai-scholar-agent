@@ -46,4 +46,4 @@ docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md
 7. Comparator creates per-paper common points, differences, and research gaps.
 8. Critic flags low-coverage or weak-overlap results.
 9. Evaluator summarizes result quality.
-10. Baseline comparison contrasts the proposed workflow with keyword-only search.
+10. Baseline comparison contrasts the proposed workflow with direct topic search and keyword-only search.

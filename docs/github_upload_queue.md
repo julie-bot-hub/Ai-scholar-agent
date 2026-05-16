@@ -32,3 +32,6 @@ This file tracks local work that is ready to push once GitHub authentication is 
 - Documentation refresh
   - Replaces the placeholder README with project usage, pipeline, and data-format guidance
   - Adds a journal universe format guide for future xlsx files
+- Direct prompt baseline comparison
+  - Adds a direct topic-query baseline alongside keyword-only OpenAlex search
+  - Updates console and Markdown report output to show multiple baselines

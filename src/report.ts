@@ -18,7 +18,7 @@ export type AgentReportInput = {
   papers: ComparedPaper[]
   criticFindings: CriticFinding[]
   evaluation: EvaluationSummary
-  baseline: BaselineResult
+  baselines: BaselineResult[]
 }
 
 export async function writeMarkdownReport(input: AgentReportInput): Promise<string> {
@@ -67,7 +67,7 @@ ${renderEvaluationSummary(input.evaluation)}
 
 ## Baseline Comparison
 
-${renderBaselineComparison(input.baseline, input.evaluation)}`
+${renderBaselineComparisons(input.baselines, input.evaluation)}`
 }
 
 function renderPaper(paper: ComparedPaper, index: number): string {
@@ -126,10 +126,22 @@ function renderEvaluationSummary(evaluation: EvaluationSummary): string {
 - Average Score: ${evaluation.averageScore}`
 }
 
-function renderBaselineComparison(
-  baseline: BaselineResult,
+function renderBaselineComparisons(
+  baselines: BaselineResult[],
   proposedEvaluation: EvaluationSummary
 ): string {
+  const baselineSections = baselines.map(renderSingleBaseline).join("\n")
+
+  return `${baselineSections}
+
+### Proposed vs Baselines
+- Proposed Paper Validity Rate: ${proposedEvaluation.paperValidityRate}
+- Proposed Open Access Rate: ${proposedEvaluation.openAccessRate}
+- Proposed Average Score: ${proposedEvaluation.averageScore}
+- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status, with topic relevance weighted most heavily.`
+}
+
+function renderSingleBaseline(baseline: BaselineResult): string {
   return `### ${baseline.name}
 - Description: ${baseline.description}
 - Query: ${baseline.query}
@@ -137,14 +149,5 @@ function renderBaselineComparison(
 - Returned count: ${baseline.evaluation.returnedCount}
 - Paper Validity Rate: ${baseline.evaluation.paperValidityRate}
 - Open Access Rate: ${baseline.evaluation.openAccessRate}
-- Average Score: ${baseline.evaluation.averageScore}
-
-### Proposed vs Baseline
-- Proposed Paper Validity Rate: ${proposedEvaluation.paperValidityRate}
-- Baseline Paper Validity Rate: ${baseline.evaluation.paperValidityRate}
-- Proposed Open Access Rate: ${proposedEvaluation.openAccessRate}
-- Baseline Open Access Rate: ${baseline.evaluation.openAccessRate}
-- Proposed Average Score: ${proposedEvaluation.averageScore}
-- Baseline Average Score: ${baseline.evaluation.averageScore}
-- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status, with topic relevance weighted most heavily.`
+- Average Score: ${baseline.evaluation.averageScore}`
 }

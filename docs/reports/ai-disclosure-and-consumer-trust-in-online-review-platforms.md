@@ -112,6 +112,14 @@
 
 ## Baseline Comparison
 
+### Baseline 1: direct LLM-style prompt
+- Description: Single-step topic query without journal filtering or self-correction.
+- Query: AI disclosure and consumer trust in online review platforms
+- OpenAlex candidates: 20
+- Returned count: 5
+- Paper Validity Rate: 0
+- Open Access Rate: 1
+- Average Score: 0.354
 ### Baseline 2: keyword-only OpenAlex search
 - Description: OpenAlex keyword search ranked by citations without allowed-journal filtering.
 - Query: AI disclosure consumer trust online review platforms
@@ -121,11 +129,8 @@
 - Open Access Rate: 1
 - Average Score: 0.609
 
-### Proposed vs Baseline
+### Proposed vs Baselines
 - Proposed Paper Validity Rate: 1
-- Baseline Paper Validity Rate: 1
 - Proposed Open Access Rate: 1
-- Baseline Open Access Rate: 1
 - Proposed Average Score: 0.522
-- Baseline Average Score: 0.609
 - Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status, with topic relevance weighted most heavily.

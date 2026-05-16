@@ -1,5 +1,9 @@
 import { JOURNALS } from "./journals.js"
-import { BaselineResult, runKeywordOnlyBaseline } from "./baseline.js"
+import {
+  BaselineResult,
+  runDirectPromptBaseline,
+  runKeywordOnlyBaseline
+} from "./baseline.js"
 import { ComparedPaper, comparePapersToTopic } from "./comparator.js"
 import { CriticFinding, reviewAgentRun } from "./critic.js"
 import { EvaluationSummary, evaluateResults } from "./evaluator.js"
@@ -21,6 +25,7 @@ export type ScholarAgentResult = {
   criticFindings: CriticFinding[]
   evaluation: EvaluationSummary
   baseline: BaselineResult
+  baselines: BaselineResult[]
   reportPath: string
 }
 
@@ -34,7 +39,11 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
   const plan = planResearchTopic(topic)
   const allowedJournals = plan.domains.flatMap((domain) => JOURNALS[domain])
   const primaryQuery = plan.keywords.join(" ")
-  const baseline = await runKeywordOnlyBaseline(primaryQuery, topic, plan.keywords)
+  const baselines = await Promise.all([
+    runDirectPromptBaseline(topic, plan.keywords),
+    runKeywordOnlyBaseline(primaryQuery, topic, plan.keywords)
+  ])
+  const baseline = baselines[1]
 
   const { candidates, filtered, retrievalAttempts } = await retrieveWithCorrection(
     primaryQuery,
@@ -71,7 +80,7 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     papers,
     criticFindings,
     evaluation,
-    baseline
+    baselines
   })
 
   return {
@@ -86,6 +95,7 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     criticFindings,
     evaluation,
     baseline,
+    baselines,
     reportPath
   }
 }
