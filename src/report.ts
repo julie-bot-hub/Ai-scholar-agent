@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { ComparedPaper } from "./comparator.js"
 import { CriticFinding } from "./critic.js"
+import { EvaluationSummary } from "./evaluator.js"
 import { DomainKey } from "./journals.js"
 import type { RetrievalAttempt } from "./agent.js"
 
@@ -15,6 +16,7 @@ export type AgentReportInput = {
   filteredCount: number
   papers: ComparedPaper[]
   criticFindings: CriticFinding[]
+  evaluation: EvaluationSummary
 }
 
 export async function writeMarkdownReport(input: AgentReportInput): Promise<string> {
@@ -55,7 +57,11 @@ ${input.retrievalAttempts.map(renderRetrievalAttempt).join("\n")}
 ${paperSections}
 ## Critic Review
 
-${input.criticFindings.map(renderCriticFinding).join("\n")}`
+${input.criticFindings.map(renderCriticFinding).join("\n")}
+
+## Evaluation Summary
+
+${renderEvaluationSummary(input.evaluation)}`
 }
 
 function renderPaper(paper: ComparedPaper, index: number): string {
@@ -102,4 +108,13 @@ function renderRetrievalAttempt(attempt: RetrievalAttempt, index: number): strin
 - OpenAlex candidates: ${attempt.candidatesCount}
 - After journal filter: ${attempt.filteredCount}
 `
+}
+
+function renderEvaluationSummary(evaluation: EvaluationSummary): string {
+  return `- Requested Top K: ${evaluation.requestedTopK}
+- Returned count: ${evaluation.returnedCount}
+- Top K complete: ${evaluation.topKComplete}
+- Paper Validity Rate: ${evaluation.paperValidityRate}
+- Open Access Rate: ${evaluation.openAccessRate}
+- Average Score: ${evaluation.averageScore}`
 }

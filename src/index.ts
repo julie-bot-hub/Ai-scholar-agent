@@ -40,6 +40,13 @@ async function main() {
   })
   console.log("")
 
+  console.log("Evaluation:")
+  console.log(`   Paper Validity Rate: ${result.evaluation.paperValidityRate}`)
+  console.log(`   Open Access Rate: ${result.evaluation.openAccessRate}`)
+  console.log(`   Average Score: ${result.evaluation.averageScore}`)
+  console.log(`   Top K Complete: ${result.evaluation.topKComplete}`)
+  console.log("")
+
   console.log(`Report: ${result.reportPath}`)
 }
 

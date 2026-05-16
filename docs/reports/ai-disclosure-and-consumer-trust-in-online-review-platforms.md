@@ -143,3 +143,12 @@
 ## Critic Review
 
 - WARNING: 2 ranked paper(s) have no direct keyword overlap in title/abstract metadata.
+
+## Evaluation Summary
+
+- Requested Top K: 5
+- Returned count: 5
+- Top K complete: true
+- Paper Validity Rate: 1
+- Open Access Rate: 1
+- Average Score: 0.84
