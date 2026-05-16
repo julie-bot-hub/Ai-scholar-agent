@@ -32,7 +32,7 @@ export async function writeMarkdownReport(input: AgentReportInput): Promise<stri
   return filePath
 }
 
-function renderMarkdownReport(input: AgentReportInput): string {
+export function renderMarkdownReport(input: AgentReportInput): string {
   const paperSections =
     input.papers.length > 0
       ? input.papers.map(renderPaper).join("\n")

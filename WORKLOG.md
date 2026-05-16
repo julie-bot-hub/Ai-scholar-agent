@@ -235,3 +235,15 @@ This file records completed work for the Ai-scholar-agent repository.
 - Verification:
   - Confirmed the previous commit was pushed to `origin/main`.
 - Commit: this commit
+
+### Report baseline rendering test
+
+- Summary: Added a unit test for Markdown report rendering so multiple baseline sections and proposed metrics are covered without network calls.
+- Changed files:
+  - `WORKLOG.md`
+  - `src/report.ts`
+  - `tests/report.test.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm test`.
+- Commit: this commit
