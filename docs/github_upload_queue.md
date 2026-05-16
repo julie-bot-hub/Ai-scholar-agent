@@ -20,3 +20,6 @@ This file tracks local work that is ready to push once GitHub authentication is 
 - Evaluation summary
   - Adds basic Paper Validity Rate, Open Access Rate, average score, and Top K completion metrics
   - Adds evaluation output to console and Markdown reports
+- File-backed journal universe
+  - Moves allowed journals into `data/journals.json` for easier replacement with xlsx-derived data later
+  - Keeps a runtime fallback so the app still runs if the file is absent
