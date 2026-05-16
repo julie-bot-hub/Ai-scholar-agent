@@ -78,3 +78,19 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Critic review checks
+
+- Summary: Added a Critic Agent module that flags low result count, empty retrieval/filtering, DOI validation failures, and institution-only access needs in the console and Markdown report.
+- Changed files:
+  - `WORKLOG.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `src/agent.ts`
+  - `src/critic.ts`
+  - `src/index.ts`
+  - `src/report.ts`
+  - `src/verifier.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit

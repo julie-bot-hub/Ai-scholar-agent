@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 import { ComparedPaper } from "./comparator.js"
+import { CriticFinding } from "./critic.js"
 import { DomainKey } from "./journals.js"
 
 export type AgentReportInput = {
@@ -11,6 +12,7 @@ export type AgentReportInput = {
   candidatesCount: number
   filteredCount: number
   papers: ComparedPaper[]
+  criticFindings: CriticFinding[]
 }
 
 export async function writeMarkdownReport(input: AgentReportInput): Promise<string> {
@@ -44,7 +46,10 @@ function renderMarkdownReport(input: AgentReportInput): string {
 
 ## Top Papers
 
-${paperSections}`
+${paperSections}
+## Critic Review
+
+${input.criticFindings.map(renderCriticFinding).join("\n")}`
 }
 
 function renderPaper(paper: ComparedPaper, index: number): string {
@@ -77,4 +82,8 @@ function slugify(text: string): string {
     .slice(0, 80)
 
   return slug || "ai-scholar-agent-report"
+}
+
+function renderCriticFinding(finding: CriticFinding): string {
+  return `- ${finding.severity.toUpperCase()}: ${finding.message}`
 }

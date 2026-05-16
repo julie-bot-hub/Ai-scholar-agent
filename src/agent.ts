@@ -1,5 +1,6 @@
 import { JOURNALS } from "./journals.js"
 import { ComparedPaper, comparePapersToTopic } from "./comparator.js"
+import { CriticFinding, reviewAgentRun } from "./critic.js"
 import { searchOpenAlex } from "./openalex.js"
 import { planResearchTopic } from "./planner.js"
 import { filterByJournals, rankPapers } from "./ranker.js"
@@ -14,6 +15,7 @@ export type ScholarAgentResult = {
   candidatesCount: number
   filteredCount: number
   papers: ComparedPaper[]
+  criticFindings: CriticFinding[]
   reportPath: string
 }
 
@@ -35,6 +37,11 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
 
   const rankedPapers = rankPapers(verified).slice(0, 5)
   const papers = comparePapersToTopic(rankedPapers, topic, plan.keywords)
+  const criticFindings = reviewAgentRun({
+    candidatesCount: candidates.length,
+    filteredCount: filtered.length,
+    papers
+  })
   const reportPath = await writeMarkdownReport({
     topic,
     domains: plan.domains,
@@ -42,7 +49,8 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     allowedJournals,
     candidatesCount: candidates.length,
     filteredCount: filtered.length,
-    papers
+    papers,
+    criticFindings
   })
 
   return {
@@ -53,6 +61,7 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     candidatesCount: candidates.length,
     filteredCount: filtered.length,
     papers,
+    criticFindings,
     reportPath
   }
 }

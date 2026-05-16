@@ -74,3 +74,7 @@
   - The paper metadata does not explicitly cover these query terms: AI, disclosure, consumer, trust, online.
   - The paper is open access, so full-text review is feasible without institutional login.
 - Research gap: A useful gap is to connect review with AI, disclosure, consumer in the context of "AI disclosure and consumer trust in online review platforms".
+
+## Critic Review
+
+- WARNING: Only 3 ranked papers were found, fewer than the target Top 5.

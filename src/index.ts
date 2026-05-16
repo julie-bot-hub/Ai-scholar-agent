@@ -28,6 +28,12 @@ async function main() {
     console.log("")
   })
 
+  console.log("Critic review:")
+  result.criticFindings.forEach((finding) => {
+    console.log(`   ${finding.severity.toUpperCase()}: ${finding.message}`)
+  })
+  console.log("")
+
   console.log(`Report: ${result.reportPath}`)
 }
 
