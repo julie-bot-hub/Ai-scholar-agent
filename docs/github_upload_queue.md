@@ -23,3 +23,6 @@ This file tracks local work that is ready to push once GitHub authentication is 
 - File-backed journal universe
   - Moves allowed journals into `data/journals.json` for easier replacement with xlsx-derived data later
   - Keeps a runtime fallback so the app still runs if the file is absent
+- Xlsx journal loader
+  - Adds `xlsx` support so a `data/journals.xlsx` file can become the primary journal universe input later
+  - Preserves JSON and built-in fallbacks for development and recovery

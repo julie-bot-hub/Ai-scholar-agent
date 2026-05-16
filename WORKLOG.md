@@ -171,3 +171,16 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Xlsx journal loader
+
+- Summary: Added `xlsx` support so the journal universe can be loaded from `data/journals.xlsx` first, with JSON and built-in fallback paths preserved for local development.
+- Changed files:
+  - `WORKLOG.md`
+  - `package-lock.json`
+  - `package.json`
+  - `src/journals.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit
