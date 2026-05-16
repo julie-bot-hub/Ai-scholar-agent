@@ -184,3 +184,26 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Xlsx template data
+
+- Summary: Added a concrete `data/journals.xlsx` template generated from the current journal universe so the xlsx-first loader can be exercised directly in the repository.
+- Changed files:
+  - `WORKLOG.md`
+  - `data/journals.xlsx`
+  - `docs/journal_universe_format.md`
+  - `README.md`
+- Verification:
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit
+
+### Documentation refresh
+
+- Summary: Replaced the starter README with project-specific run, test, data-format, and pipeline documentation, and added a journal universe format guide for future xlsx updates.
+- Changed files:
+  - `README.md`
+  - `WORKLOG.md`
+  - `docs/journal_universe_format.md`
+- Verification:
+  - Reviewed the updated documentation for the current CLI workflow and data loader format.
+- Commit: this commit

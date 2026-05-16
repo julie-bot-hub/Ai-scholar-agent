@@ -26,3 +26,9 @@ This file tracks local work that is ready to push once GitHub authentication is 
 - Xlsx journal loader
   - Adds `xlsx` support so a `data/journals.xlsx` file can become the primary journal universe input later
   - Preserves JSON and built-in fallbacks for development and recovery
+- Xlsx template data
+  - Adds a repository-local `data/journals.xlsx` template generated from the current journal universe
+  - Makes the xlsx-first loader path exerciseable without any external file
+- Documentation refresh
+  - Replaces the placeholder README with project usage, pipeline, and data-format guidance
+  - Adds a journal universe format guide for future xlsx files
