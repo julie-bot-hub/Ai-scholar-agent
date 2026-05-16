@@ -21,3 +21,24 @@ This file records completed work for the Ai-scholar-agent repository.
   - Confirmed the working tree was clean before setup.
   - Registered `origin` as `https://github.com/julie-bot-hub/Ai-scholar-agent.git`.
 - Commit: this commit
+
+## 2026-05-16
+
+### TypeScript MVP scaffold
+
+- Summary: Added a TypeScript MVP that plans domains from a research topic, searches OpenAlex, filters by allowed journals, verifies DOI availability through Crossref, and ranks candidate papers.
+- Changed files:
+  - `.gitignore`
+  - `package-lock.json`
+  - `package.json`
+  - `src/index.ts`
+  - `src/journals.ts`
+  - `src/openalex.ts`
+  - `src/planner.ts`
+  - `src/ranker.ts`
+  - `src/verifier.ts`
+  - `tsconfig.json`
+- Verification:
+  - Ran `npm install`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit
