@@ -142,3 +142,20 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm run typecheck`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### Relevance-aware ranking
+
+- Summary: Added shared keyword matching utilities, incorporated topic relevance into ranking scores, and excluded zero-relevance papers from final ranked outputs.
+- Changed files:
+  - `WORKLOG.md`
+  - `docs/reports/ai-disclosure-and-consumer-trust-in-online-review-platforms.md`
+  - `src/agent.ts`
+  - `src/baseline.ts`
+  - `src/comparator.ts`
+  - `src/keyword.ts`
+  - `src/ranker.ts`
+  - `src/report.ts`
+- Verification:
+  - Ran `npm run typecheck`.
+  - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
+- Commit: this commit

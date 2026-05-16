@@ -1,4 +1,5 @@
 import { RankedPaper } from "./ranker.js"
+import { findMatchedKeywords, findMissingKeywords } from "./keyword.js"
 
 export type PaperComparison = {
   matchedKeywords: string[]
@@ -28,11 +29,9 @@ function comparePaperToTopic(
   topic: string,
   keywords: string[]
 ): PaperComparison {
-  const searchableText = `${paper.title} ${paper.abstract ?? ""}`.toLowerCase()
-  const matchedKeywords = keywords.filter((keyword) => keywordMatches(searchableText, keyword))
-  const missingKeywords = keywords.filter(
-    (keyword) => !keywordMatches(searchableText, keyword)
-  )
+  const searchableText = `${paper.title} ${paper.abstract ?? ""}`
+  const matchedKeywords = findMatchedKeywords(searchableText, keywords)
+  const missingKeywords = findMissingKeywords(searchableText, keywords)
 
   return {
     matchedKeywords,
@@ -41,20 +40,6 @@ function comparePaperToTopic(
     differences: buildDifferences(missingKeywords, paper),
     researchGap: buildResearchGap(topic, matchedKeywords, missingKeywords, paper)
   }
-}
-
-function keywordMatches(searchableText: string, keyword: string): boolean {
-  const normalizedKeyword = keyword.toLowerCase()
-
-  if (normalizedKeyword === "ai") {
-    return /\bai\b/.test(searchableText) || searchableText.includes("artificial intelligence")
-  }
-
-  return new RegExp(`\\b${escapeRegExp(normalizedKeyword)}\\b`).test(searchableText)
-}
-
-function escapeRegExp(text: string): string {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 
 function buildCommonPoints(keywords: string[], paper: RankedPaper): string[] {

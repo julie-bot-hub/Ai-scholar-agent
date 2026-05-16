@@ -26,7 +26,9 @@ export async function runKeywordOnlyBaseline(
       accessStatus: determineAccessStatus(paper)
     }))
   )
-  const rankedPapers = rankPapers(verified).slice(0, 5)
+  const rankedPapers = rankPapers(verified, keywords)
+    .filter((paper) => paper.relevanceScore > 0)
+    .slice(0, 5)
   const papers = comparePapersToTopic(rankedPapers, topic, keywords)
 
   return {

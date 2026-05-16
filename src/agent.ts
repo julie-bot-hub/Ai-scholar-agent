@@ -50,7 +50,9 @@ export async function runScholarAgent(topic: string): Promise<ScholarAgentResult
     }))
   )
 
-  const rankedPapers = rankPapers(verified).slice(0, 5)
+  const rankedPapers = rankPapers(verified, plan.keywords)
+    .filter((paper) => paper.relevanceScore > 0)
+    .slice(0, 5)
   const papers = comparePapersToTopic(rankedPapers, topic, plan.keywords)
   const criticFindings = reviewAgentRun({
     candidatesCount: candidates.length,

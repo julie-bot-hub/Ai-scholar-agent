@@ -80,6 +80,7 @@ function renderPaper(paper: ComparedPaper, index: number): string {
 - PDF URL: ${paper.pdfUrl ?? "None"}
 - Landing page: ${paper.landingPageUrl ?? "None"}
 - Citations: ${paper.citedByCount}
+- Relevance score: ${paper.relevanceScore.toFixed(3)}
 - Score: ${paper.score.toFixed(3)}
 - OpenAlex ID: ${paper.openAlexId}
 
@@ -145,5 +146,5 @@ function renderBaselineComparison(
 - Baseline Open Access Rate: ${baseline.evaluation.openAccessRate}
 - Proposed Average Score: ${proposedEvaluation.averageScore}
 - Baseline Average Score: ${baseline.evaluation.averageScore}
-- Interpretation note: Average Score does not measure allowed-journal precision; it only combines citation, recency, DOI validity, and open-access status.`
+- Interpretation note: Average Score combines topic relevance, citation, recency, DOI validity, and open-access status.`
 }

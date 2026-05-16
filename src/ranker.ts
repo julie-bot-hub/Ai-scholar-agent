@@ -1,9 +1,11 @@
 import { Paper } from "./openalex.js"
+import { findMatchedKeywords } from "./keyword.js"
 import { AccessStatus } from "./verifier.js"
 
 export type RankedPaper = Paper & {
   doiValid: boolean
   accessStatus: AccessStatus
+  relevanceScore: number
   score: number
 }
 
@@ -13,7 +15,8 @@ export function filterByJournals(papers: Paper[], allowedJournals: string[]): Pa
 }
 
 export function rankPapers(
-  papers: Array<Paper & { doiValid: boolean; accessStatus: AccessStatus }>
+  papers: Array<Paper & { doiValid: boolean; accessStatus: AccessStatus }>,
+  keywords: string[] = []
 ): RankedPaper[] {
   return papers
     .map((paper) => {
@@ -22,12 +25,18 @@ export function rankPapers(
         paper.year ? Math.max(0, 1 - (new Date().getFullYear() - paper.year) / 10) : 0
       const doiScore = paper.doiValid ? 1 : 0
       const accessScore = paper.accessStatus === "open_access" ? 1 : 0
+      const relevanceScore = calculateRelevanceScore(paper, keywords)
 
       const score =
-        citationScore * 0.35 + recencyScore * 0.2 + doiScore * 0.35 + accessScore * 0.1
+        relevanceScore * 0.35 +
+        citationScore * 0.25 +
+        recencyScore * 0.15 +
+        doiScore * 0.15 +
+        accessScore * 0.1
 
       return {
         ...paper,
+        relevanceScore,
         score
       }
     })
@@ -36,4 +45,13 @@ export function rankPapers(
 
 function normalize(text: string): string {
   return text.toLowerCase().replace(/[^a-z0-9& ]/g, "").replace(/\s+/g, " ").trim()
+}
+
+function calculateRelevanceScore(paper: Paper, keywords: string[]): number {
+  if (keywords.length === 0) {
+    return 0
+  }
+
+  const matchedKeywords = findMatchedKeywords(`${paper.title} ${paper.abstract ?? ""}`, keywords)
+  return matchedKeywords.length / keywords.length
 }
