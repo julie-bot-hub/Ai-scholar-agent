@@ -225,3 +225,13 @@ This file records completed work for the Ai-scholar-agent repository.
   - Ran `npm test`.
   - Ran `npm run dev -- "AI disclosure and consumer trust in online review platforms"`.
 - Commit: this commit
+
+### GitHub upload queue cleanup
+
+- Summary: Updated the GitHub upload queue document after successful authentication and push, clearing stale queued-work entries.
+- Changed files:
+  - `WORKLOG.md`
+  - `docs/github_upload_queue.md`
+- Verification:
+  - Confirmed the previous commit was pushed to `origin/main`.
+- Commit: this commit
