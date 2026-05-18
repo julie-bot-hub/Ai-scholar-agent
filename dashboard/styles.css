@@ -176,12 +176,23 @@ main {
   margin-top: 18px;
 }
 
-.chips span {
+.chips button,
+.toolbar button {
   padding: 7px 10px;
+  border: 0;
   border-radius: 999px;
   background: #edf7f6;
   color: #0b5f59;
+  cursor: pointer;
   font-weight: 700;
+}
+
+.chips button:hover,
+.toolbar button:hover,
+.chips button.active,
+.toolbar button.active {
+  background: var(--accent);
+  color: #fff;
 }
 
 .metrics {
@@ -327,14 +338,56 @@ dd {
 }
 
 .paper-card a,
+.paper-card button,
 .button {
   width: fit-content;
   padding: 9px 12px;
+  border: 0;
   border-radius: 6px;
   background: #eaf3ff;
   color: var(--accent-2);
+  cursor: pointer;
   font-weight: 800;
   text-decoration: none;
+}
+
+.paper-card button {
+  background: var(--accent);
+  color: #fff;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -6px 0 16px;
+}
+
+.toolbar button {
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.toolbar button.active,
+.toolbar button:hover {
+  box-shadow: none;
+}
+
+.text-button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--accent-2);
+  cursor: pointer;
+  font-weight: 800;
 }
 
 .bars {
@@ -359,6 +412,88 @@ dd {
   border-radius: 999px;
   background:
     linear-gradient(90deg, var(--accent) var(--value), #e7edf0 var(--value));
+}
+
+.insight-panel {
+  padding: 24px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.insight-panel h2 {
+  margin: 0 0 12px;
+}
+
+.insight-panel p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.timeline button {
+  all: unset;
+  display: grid;
+  grid-column: 2;
+  cursor: pointer;
+}
+
+.timeline button:hover strong,
+.timeline button.active strong {
+  color: var(--accent);
+}
+
+.detail-dialog {
+  width: min(720px, calc(100vw - 32px));
+  border: 0;
+  border-radius: 8px;
+  padding: 28px;
+  color: var(--ink);
+  box-shadow: 0 28px 80px rgba(12, 20, 24, 0.32);
+}
+
+.detail-dialog::backdrop {
+  background: rgba(10, 20, 24, 0.48);
+}
+
+.detail-dialog h2 {
+  margin: 0 0 12px;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.detail-dialog p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.dialog-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.dialog-grid div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  background: #f4f7f8;
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: #eef3f5;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
 }
 
 .deploy {

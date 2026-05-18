@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Scholar Agent Dashboard</title>
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
   </head>
   <body>
     <aside class="sidebar">
@@ -38,8 +39,8 @@
           <span>Current query</span>
           <strong>AI disclosure and consumer trust in online review platforms</strong>
           <div class="chips">
-            <span>marketing</span>
-            <span>information systems</span>
+            <button type="button" data-filter="marketing">marketing</button>
+            <button type="button" data-filter="is">information systems</button>
           </div>
         </div>
       </section>
@@ -74,12 +75,12 @@
             <h2>Agent Pipeline</h2>
           </div>
           <ol class="timeline">
-            <li><strong>Planner</strong><span>키워드와 분야 후보를 생성합니다.</span></li>
-            <li><strong>Journal Selector</strong><span>xlsx/json 허용 저널 목록으로 검색 범위를 제한합니다.</span></li>
-            <li><strong>Retriever</strong><span>OpenAlex에서 후보 논문을 수집합니다.</span></li>
-            <li><strong>Verifier</strong><span>DOI, 저널명, 접근 가능성을 검증합니다.</span></li>
-            <li><strong>Ranker & Comparator</strong><span>관련성, 인용 수, 최신성, research gap을 계산합니다.</span></li>
-            <li><strong>Critic & Report</strong><span>품질 이슈를 표시하고 Markdown/HTML 보고서를 남깁니다.</span></li>
+            <li><button type="button" data-step="planner"><strong>Planner</strong><span>키워드와 분야 후보를 생성합니다.</span></button></li>
+            <li><button type="button" data-step="journal"><strong>Journal Selector</strong><span>xlsx/json 허용 저널 목록으로 검색 범위를 제한합니다.</span></button></li>
+            <li><button type="button" data-step="retriever"><strong>Retriever</strong><span>OpenAlex에서 후보 논문을 수집합니다.</span></button></li>
+            <li><button type="button" data-step="verifier"><strong>Verifier</strong><span>DOI, 저널명, 접근 가능성을 검증합니다.</span></button></li>
+            <li><button type="button" data-step="ranker"><strong>Ranker & Comparator</strong><span>관련성, 인용 수, 최신성, research gap을 계산합니다.</span></button></li>
+            <li><button type="button" data-step="critic"><strong>Critic & Report</strong><span>품질 이슈를 표시하고 Markdown/HTML 보고서를 남깁니다.</span></button></li>
           </ol>
         </div>
 
@@ -92,14 +93,17 @@
             <article>
               <h3>Marketing</h3>
               <p>Journal of Marketing Research, Journal of Consumer Research, Marketing Science, Journal of Marketing, Journal of Retailing, Journal of Product Innovation Management, Journal of Consumer Psychology, Journal of the Academy of Marketing Science</p>
+              <button type="button" class="text-button" data-journal="marketing">Show details</button>
             </article>
             <article>
               <h3>Information Systems</h3>
               <p>MIS Quarterly, Information Systems Research, Journal of Management Information Systems, Information & Management, Decision Support Systems, Journal of AIS</p>
+              <button type="button" class="text-button" data-journal="is">Show details</button>
             </article>
             <article>
               <h3>Management</h3>
               <p>Academy of Management Review, Academy of Management Journal, Administrative Science Quarterly, Strategic Management Journal, Journal of Management, Organization Science</p>
+              <button type="button" class="text-button" data-journal="management">Show details</button>
             </article>
           </div>
         </div>
@@ -110,8 +114,15 @@
           <p class="eyebrow">Ranked result</p>
           <h2>Top Papers</h2>
         </div>
+        <div class="toolbar" aria-label="Paper filters">
+          <button type="button" class="active" data-filter="all">All</button>
+          <button type="button" data-filter="marketing">Marketing</button>
+          <button type="button" data-filter="is">Information Systems</button>
+          <button type="button" data-sort="score">Sort by score</button>
+          <button type="button" data-sort="citations">Sort by citations</button>
+        </div>
         <div class="paper-grid">
-          <article class="paper-card">
+          <article class="paper-card" data-domain="marketing" data-paper="consumers-ai" data-score="0.583" data-citations="976">
             <div class="paper-topline"><span>Score 0.583</span><span>2020</span></div>
             <h3>Consumers and Artificial Intelligence: An Experiential Perspective</h3>
             <p>Journal of Marketing</p>
@@ -120,9 +131,12 @@
               <div><dt>Citations</dt><dd>976</dd></div>
               <div><dt>Access</dt><dd>Open access</dd></div>
             </dl>
-            <a href="https://doi.org/10.1177/0022242920953847">Landing page</a>
+            <div class="card-actions">
+              <button type="button" data-open-paper="consumers-ai">Details</button>
+              <a href="https://doi.org/10.1177/0022242920953847">Landing page</a>
+            </div>
           </article>
-          <article class="paper-card">
+          <article class="paper-card" data-domain="marketing" data-paper="strategic-ai" data-score="0.511" data-citations="1474">
             <div class="paper-topline"><span>Score 0.511</span><span>2020</span></div>
             <h3>A strategic framework for artificial intelligence in marketing</h3>
             <p>Journal of the Academy of Marketing Science</p>
@@ -131,9 +145,12 @@
               <div><dt>Citations</dt><dd>1474</dd></div>
               <div><dt>Access</dt><dd>Open access</dd></div>
             </dl>
-            <a href="https://doi.org/10.1007/s11747-020-00749-9">Landing page</a>
+            <div class="card-actions">
+              <button type="button" data-open-paper="strategic-ai">Details</button>
+              <a href="https://doi.org/10.1007/s11747-020-00749-9">Landing page</a>
+            </div>
           </article>
-          <article class="paper-card">
+          <article class="paper-card" data-domain="is" data-paper="privacy-digital" data-score="0.471" data-citations="1289">
             <div class="paper-topline"><span>Score 0.471</span><span>2011</span></div>
             <h3>Privacy in the Digital Age: a Review of Information Privacy Research in Information Systems</h3>
             <p>MIS Quarterly</p>
@@ -142,7 +159,10 @@
               <div><dt>Citations</dt><dd>1289</dd></div>
               <div><dt>Access</dt><dd>Open access</dd></div>
             </dl>
-            <a href="https://doi.org/10.2307/41409971">Landing page</a>
+            <div class="card-actions">
+              <button type="button" data-open-paper="privacy-digital">Details</button>
+              <a href="https://doi.org/10.2307/41409971">Landing page</a>
+            </div>
           </article>
         </div>
       </section>
@@ -158,6 +178,11 @@
           <label><span>Top K completion</span><strong>60%</strong><i style="--value: 60%"></i></label>
           <label><span>Average score</span><strong>0.522</strong><i style="--value: 52.2%"></i></label>
         </div>
+        <div class="insight-panel" id="insight-panel">
+          <p class="eyebrow">Click insight</p>
+          <h2 id="insight-title">Planner</h2>
+          <p id="insight-copy">키워드와 연구 분야 후보를 만들고, 검색 범위를 좁히는 출발점입니다.</p>
+        </div>
       </section>
 
       <section class="deploy" id="deploy">
@@ -172,5 +197,13 @@
         <a class="button" href="../README.md">Project README</a>
       </section>
     </main>
+
+    <dialog class="detail-dialog" id="detail-dialog">
+      <button type="button" class="close-button" data-close-dialog aria-label="Close detail">×</button>
+      <p class="eyebrow" id="dialog-eyebrow">Paper detail</p>
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-copy"></p>
+      <div class="dialog-grid" id="dialog-grid"></div>
+    </dialog>
   </body>
 </html>
