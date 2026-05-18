@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Scholar Agent Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">AI</span>
+        <div>
+          <strong>Scholar Agent</strong>
+          <span>Trust-based paper discovery</span>
+        </div>
+      </div>
+      <nav aria-label="Dashboard sections">
+        <a href="#overview">Overview</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#papers">Top Papers</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#deploy">Cloudflare</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">대학원생을 위한 신뢰 기반 논문 탐색 에이전트</p>
+          <h1>상위 저널 안에서 실제 존재하는 논문을 찾고, 검증하고, 비교합니다.</h1>
+          <p class="hero-copy">
+            OpenAlex 후보 검색, 허용 저널 필터링, DOI 검증, 랭킹, 비교, Critic 평가까지 한 화면에서 확인할 수 있는
+            프로젝트 대시보드입니다.
+          </p>
+        </div>
+        <div class="query-panel" aria-label="Current query summary">
+          <span>Current query</span>
+          <strong>AI disclosure and consumer trust in online review platforms</strong>
+          <div class="chips">
+            <span>marketing</span>
+            <span>information systems</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics" aria-label="Key metrics">
+        <article>
+          <span>OpenAlex Candidates</span>
+          <strong>50</strong>
+          <small>2 retrieval attempts</small>
+        </article>
+        <article>
+          <span>Journal Filtered</span>
+          <strong>5</strong>
+          <small>Allowed top-journal universe</small>
+        </article>
+        <article>
+          <span>Ranked Papers</span>
+          <strong>3 / 5</strong>
+          <small>Critic flagged low coverage</small>
+        </article>
+        <article>
+          <span>DOI Validity</span>
+          <strong>100%</strong>
+          <small>All returned papers verified</small>
+        </article>
+      </section>
+
+      <section class="split" id="pipeline">
+        <div>
+          <div class="section-heading">
+            <p class="eyebrow">System flow</p>
+            <h2>Agent Pipeline</h2>
+          </div>
+          <ol class="timeline">
+            <li><strong>Planner</strong><span>키워드와 분야 후보를 생성합니다.</span></li>
+            <li><strong>Journal Selector</strong><span>xlsx/json 허용 저널 목록으로 검색 범위를 제한합니다.</span></li>
+            <li><strong>Retriever</strong><span>OpenAlex에서 후보 논문을 수집합니다.</span></li>
+            <li><strong>Verifier</strong><span>DOI, 저널명, 접근 가능성을 검증합니다.</span></li>
+            <li><strong>Ranker & Comparator</strong><span>관련성, 인용 수, 최신성, research gap을 계산합니다.</span></li>
+            <li><strong>Critic & Report</strong><span>품질 이슈를 표시하고 Markdown/HTML 보고서를 남깁니다.</span></li>
+          </ol>
+        </div>
+
+        <div class="journal-panel">
+          <div class="section-heading">
+            <p class="eyebrow">Journal universe</p>
+            <h2>Allowed Journals</h2>
+          </div>
+          <div class="journal-groups">
+            <article>
+              <h3>Marketing</h3>
+              <p>Journal of Marketing Research, Journal of Consumer Research, Marketing Science, Journal of Marketing, Journal of Retailing, Journal of Product Innovation Management, Journal of Consumer Psychology, Journal of the Academy of Marketing Science</p>
+            </article>
+            <article>
+              <h3>Information Systems</h3>
+              <p>MIS Quarterly, Information Systems Research, Journal of Management Information Systems, Information & Management, Decision Support Systems, Journal of AIS</p>
+            </article>
+            <article>
+              <h3>Management</h3>
+              <p>Academy of Management Review, Academy of Management Journal, Administrative Science Quarterly, Strategic Management Journal, Journal of Management, Organization Science</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="papers">
+        <div class="section-heading">
+          <p class="eyebrow">Ranked result</p>
+          <h2>Top Papers</h2>
+        </div>
+        <div class="paper-grid">
+          <article class="paper-card">
+            <div class="paper-topline"><span>Score 0.583</span><span>2020</span></div>
+            <h3>Consumers and Artificial Intelligence: An Experiential Perspective</h3>
+            <p>Journal of Marketing</p>
+            <dl>
+              <div><dt>DOI</dt><dd>10.1177/0022242920953847</dd></div>
+              <div><dt>Citations</dt><dd>976</dd></div>
+              <div><dt>Access</dt><dd>Open access</dd></div>
+            </dl>
+            <a href="https://doi.org/10.1177/0022242920953847">Landing page</a>
+          </article>
+          <article class="paper-card">
+            <div class="paper-topline"><span>Score 0.511</span><span>2020</span></div>
+            <h3>A strategic framework for artificial intelligence in marketing</h3>
+            <p>Journal of the Academy of Marketing Science</p>
+            <dl>
+              <div><dt>DOI</dt><dd>10.1007/s11747-020-00749-9</dd></div>
+              <div><dt>Citations</dt><dd>1474</dd></div>
+              <div><dt>Access</dt><dd>Open access</dd></div>
+            </dl>
+            <a href="https://doi.org/10.1007/s11747-020-00749-9">Landing page</a>
+          </article>
+          <article class="paper-card">
+            <div class="paper-topline"><span>Score 0.471</span><span>2011</span></div>
+            <h3>Privacy in the Digital Age: a Review of Information Privacy Research in Information Systems</h3>
+            <p>MIS Quarterly</p>
+            <dl>
+              <div><dt>DOI</dt><dd>10.2307/41409971</dd></div>
+              <div><dt>Citations</dt><dd>1289</dd></div>
+              <div><dt>Access</dt><dd>Open access</dd></div>
+            </dl>
+            <a href="https://doi.org/10.2307/41409971">Landing page</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="split" id="evaluation">
+        <div class="section-heading">
+          <p class="eyebrow">Quality check</p>
+          <h2>Evaluation Summary</h2>
+        </div>
+        <div class="bars" aria-label="Evaluation rates">
+          <label><span>Paper validity</span><strong>100%</strong><i style="--value: 100%"></i></label>
+          <label><span>Open access</span><strong>100%</strong><i style="--value: 100%"></i></label>
+          <label><span>Top K completion</span><strong>60%</strong><i style="--value: 60%"></i></label>
+          <label><span>Average score</span><strong>0.522</strong><i style="--value: 52.2%"></i></label>
+        </div>
+      </section>
+
+      <section class="deploy" id="deploy">
+        <div>
+          <p class="eyebrow">Deployment</p>
+          <h2>Cloudflare Pages로 확인하는 방법</h2>
+          <p>
+            GitHub 저장소를 Cloudflare Pages에 연결하고 빌드 설정에서 output directory를 <code>dashboard</code>로 지정하면
+            이 화면을 바로 배포할 수 있습니다. 빌드 명령은 비워두거나 <code>npm install</code> 없이 정적 배포로 설정하면 됩니다.
+          </p>
+        </div>
+        <a class="button" href="../README.md">Project README</a>
+      </section>
+    </main>
+  </body>
+</html>
